@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from posts.views import hello_view, html_view, posts_list_view, posts_detail_view
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
@@ -28,3 +30,5 @@ urlpatterns = [
     # path('post-detail', posts_detail_view)
 ]
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)            
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS) 
