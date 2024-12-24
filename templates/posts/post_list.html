@@ -1,6 +1,10 @@
 {%extends 'base.html'%}
 
 {%block content%}
+<form action="/posts/" method="get", enctype="multipart/form-data">
+  {{form.as_p}}
+  <button type="submit">Search</button>
+</form>
 {%for post in posts%}
 <div class="card" style="width: 18rem;">
   {%if post.image%}
@@ -10,10 +14,37 @@
    {%endif%}
     <div class="card-body">
       <h5 class="card-title">{{post.title}}</h5>
-      <p class="card-text">{{post.content}}</p>
+      <p class="card-text">{{post.description}}</p>
       <p class="card-text" style="color: blue;">{{post.created_at}}</p>
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
   </div>
 {%endfor%}
+<div style="display: flex; justify-content: center; margin-top: 20px; margin-bottom: 40px">
+{% for i in max_pages %}
+{% if request.GET%}
+<a class="btn btn-primary" href="{{request.get_full_path}}&page={{i}}">{{i}}</a>
+{% else %}
+  <a href="/posts/?page={{ i }}" class="btn btn-primary">
+      {{ i }}
+  </a>
+{% endif %}
+{% endfor %} 
+</div>
 {%endblock%}
+
+
+
+
+
+
+
+{% comment %} {% for i in max_pages %}
+{% if request.GET%}
+<a class="btn btn-primary" href="{{request.get_full_path}}&page={{i}}">{{i}}</a>
+{% else %}
+  <a href="/posts/?page={{ i }}" class="btn btn-primary">
+      {{ i }}
+  </a>
+{% endif %}
+{% endfor %} {% endcomment %}
